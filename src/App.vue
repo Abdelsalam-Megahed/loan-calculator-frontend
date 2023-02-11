@@ -38,7 +38,7 @@ export default {
     <h2>Loan calculator</h2>
     <form @submit.prevent="submit">
       <div class="input-box">
-        <input type="text" v-model="form.personalCode" required />
+        <input type="text" v-model="form.personalCode" required maxlength="11" minlength="11"/>
         <label>Personal code</label>
       </div>
       <div class="input-box">
@@ -137,10 +137,9 @@ body {
 
 .calculator-box .input-box input:focus ~ label,
 .calculator-box .input-box input:valid ~ label {
-  top: -20px;
+  top: -26px;
   left: 0;
   color: #5d3891;
-  font-size: 12px;
 }
 
 button {
