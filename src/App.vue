@@ -18,19 +18,16 @@ export default {
   },
   methods: {
     submit() {
-      axios
-        .post("http://localhost:8080/api/v1/calculate", this.form)
-        .then((response) => {
-          return response.data;
-        })
-        .then((data) => {
-          this.error = "";
-          this.result.amount = data?.amount;
-          this.result.loanPeriod = data?.loanPeriod;
-        })
-        .catch((error) => {
-          this.error = error?.response?.data?.error;
-        });
+        axios
+          .post("http://localhost:8080/api/v1/calculate", this.form)
+          .then(({ data }) => {
+            this.error = "";
+            this.result.amount = data?.amount;
+            this.result.loanPeriod = data?.loanPeriod;
+          })
+          .catch(({response}) => {
+            this.error = response?.data?.error;
+          });
     },
   },
 };
@@ -88,7 +85,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background: linear-gradient(#5D3891, #2B0055);
+  background: linear-gradient(#5d3891, #2b0055);
 }
 
 .calculator-box {
@@ -142,13 +139,13 @@ body {
 .calculator-box .input-box input:valid ~ label {
   top: -20px;
   left: 0;
-  color: #5D3891;
+  color: #5d3891;
   font-size: 12px;
 }
 
 button {
   padding: 10px 20px;
-  color: #5D3891;
+  color: #5d3891;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
@@ -161,7 +158,7 @@ button {
 }
 
 button:hover {
-  background: #5D3891;
+  background: #5d3891;
   color: #fff;
 }
 
@@ -172,7 +169,7 @@ button:hover {
 }
 
 .error-message {
-  color: #F94A29;
+  color: #f94a29;
   margin-top: 32px;
 }
 </style>

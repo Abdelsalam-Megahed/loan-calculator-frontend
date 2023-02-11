@@ -2,6 +2,8 @@
 
 Stack: Vue 3 and Vite.
 
+Make sure backend service is running on port 8080 in order to be able to make requests from the frontend
+
 ## Project Setup
 
 ```sh
