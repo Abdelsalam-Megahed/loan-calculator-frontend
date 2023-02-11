@@ -1,5 +1,5 @@
 <script>
-import axios from "axios"
+import axios from "axios";
 
 export default {
   data() {
@@ -11,9 +11,9 @@ export default {
       },
       result: {
         amount: 0,
-        loanPeriod: 0
+        loanPeriod: 0,
       },
-      error: ""
+      error: "",
     };
   },
   methods: {
@@ -21,15 +21,15 @@ export default {
       axios
         .post("http://localhost:8080/api/v1/calculate", this.form)
         .then((response) => {
-            return response.data;
+          return response.data;
         })
-        .then((data) => {     
-          this.error = ""
-          this.result.amount = data?.amount
-          this.result.loanPeriod = data?.loanPeriod
+        .then((data) => {
+          this.error = "";
+          this.result.amount = data?.amount;
+          this.result.loanPeriod = data?.loanPeriod;
         })
         .catch((error) => {
-          this.error = error?.response?.data?.error
+          this.error = error?.response?.data?.error;
         });
     },
   },
@@ -37,56 +37,142 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h3>Loan calculator</h3>
+  <div class="calculator-box">
+    <h2>Loan calculator</h2>
     <form @submit.prevent="submit">
-    <div>
-      <span>Enter personal code</span>
-      <input 
-      type="text" 
-      v-model="form.personalCode" 
-      required />
-    </div>
-    <div>
-      <span>Enter loan amount</span>
-      <input
-        type="number"
-        v-model="form.loanAmount"
-        required
-        min="2000"
-        max="10000"
-      />
-    </div>
-    <div>
-      <span>Enter loan period</span>
-      <input
-        type="number"
-        v-model="form.loanPeriod"
-        required
-        min="12"
-        max="60"
-      />
-    </div>
+      <div class="input-box">
+        <input type="text" v-model="form.personalCode" required />
+        <label>Personal code</label>
+      </div>
+      <div class="input-box">
+        <input
+          type="number"
+          v-model="form.loanAmount"
+          required
+          min="2000"
+          max="10000"
+        />
+        <label>Loan amount</label>
+      </div>
+      <div class="input-box">
+        <input
+          type="number"
+          v-model="form.loanPeriod"
+          required
+          min="12"
+          max="60"
+        />
+        <label>Loan period in months</label>
+      </div>
 
-    <button type="submit">Submit</button>
+      <button type="submit">Submit</button>
 
-    <div v-if="!error">
-      <p>Possible to lend you an amount of {{ result.amount }} over {{ result.loanPeriod }} months.</p>
-    </div>
+      <div class="message" v-if="!error && result.amount">
+        <p>
+          Possible to lend you an amount of {{ result.amount }} over
+          {{ result.loanPeriod }} months.
+        </p>
+      </div>
 
-    <div v-if="error">{{ error }}</div>
+      <div class="error-message" v-if="error">{{ error }}</div>
     </form>
   </div>
 </template>
 
 <style>
-.center {
-  margin: auto;
-  width: 50%;
+html {
+  height: 100%;
 }
 
-span {
-  padding-right: 12px;
-  padding-bottom: 12px;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: linear-gradient(#5D3891, #2B0055);
+}
+
+.calculator-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+}
+
+.calculator-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.calculator-box .input-box {
+  position: relative;
+}
+
+.calculator-box .input-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+
+.calculator-box .input-box label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.calculator-box .input-box input:focus ~ label,
+.calculator-box .input-box input:valid ~ label {
+  top: -20px;
+  left: 0;
+  color: #5D3891;
+  font-size: 12px;
+}
+
+button {
+  padding: 10px 20px;
+  color: #5D3891;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 32px;
+  letter-spacing: 4px;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #5D3891;
+  color: #fff;
+}
+
+.message {
+  color: #fff;
+  margin-top: 32px;
+  font-size: 18px;
+}
+
+.error-message {
+  color: #F94A29;
+  margin-top: 32px;
 }
 </style>
