@@ -20,8 +20,13 @@ npm run dev
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+### Lint with ESLint
 
 ```sh
 npm run lint
 ```
+
+### improvements
+
+- tests on the frontend side
+- custom validation instead of relying on HTML validation
