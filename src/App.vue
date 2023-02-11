@@ -13,21 +13,26 @@ export default {
         amount: 0,
         loanPeriod: 0,
       },
+      disableSubmitButton: false,
       error: "",
     };
   },
   methods: {
     submit() {
-        axios
-          .post("http://localhost:8080/api/v1/calculate", this.form)
-          .then(({ data }) => {
-            this.error = "";
-            this.result.amount = data?.amount;
-            this.result.loanPeriod = data?.loanPeriod;
-          })
-          .catch(({response}) => {
-            this.error = response?.data?.error;
-          });
+      this.disableSubmitButton = true;
+
+      axios
+        .post("http://localhost:8080/api/v1/calculate", this.form)
+        .then(({ data }) => {
+          this.error = "";
+          this.result.amount = data?.amount;
+          this.result.loanPeriod = data?.loanPeriod;
+          this.disableSubmitButton = false;
+        })
+        .catch(({ response }) => {
+          this.error = response?.data?.error;
+          this.disableSubmitButton = false;
+        });
     },
   },
 };
@@ -38,7 +43,13 @@ export default {
     <h2>Loan calculator</h2>
     <form @submit.prevent="submit">
       <div class="input-box">
-        <input type="text" v-model="form.personalCode" required maxlength="11" minlength="11"/>
+        <input
+          type="text"
+          v-model="form.personalCode"
+          required
+          maxlength="11"
+          minlength="11"
+        />
         <label>Personal code</label>
       </div>
       <div class="input-box">
@@ -62,7 +73,7 @@ export default {
         <label>Loan period in months</label>
       </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit" :disabled="disableSubmitButton">Submit</button>
 
       <div class="message" v-if="!error && result.amount">
         <p>
@@ -137,7 +148,7 @@ body {
 
 .calculator-box .input-box input:focus ~ label,
 .calculator-box .input-box input:valid ~ label {
-  top: -26px;
+  top: -24px;
   left: 0;
   color: #5d3891;
 }
@@ -159,6 +170,10 @@ button {
 button:hover {
   background: #5d3891;
   color: #fff;
+}
+
+button:disabled {
+  background: #EEEEEE;
 }
 
 .message {
