@@ -25,11 +25,11 @@ export default {
         })
         .then((data) => {     
           this.error = ""
-          this.result.amount = data.amount
-          this.result.loanPeriod = data.loanPeriod
+          this.result.amount = data?.amount
+          this.result.loanPeriod = data?.loanPeriod
         })
         .catch((error) => {
-          this.error = error.response.data.error
+          this.error = error?.response?.data?.error
         });
     },
   },
