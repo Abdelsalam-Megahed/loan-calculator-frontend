@@ -1,6 +1,6 @@
 # Description
 
-Frontend app that consumes the [the loan calculator API](https://github.com/Abdelsalam-Megahed/loan-calculator-service).
+Frontend app that consumes the [loan calculator API](https://github.com/Abdelsalam-Megahed/loan-calculator-service).
 
 Stack: Vue 3 and Vite.
 
