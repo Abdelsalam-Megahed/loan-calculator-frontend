@@ -1,6 +1,6 @@
 # Description
 
-Frontend app that uses the [API of the loan calculator](https://github.com/Abdelsalam-Megahed/loan-calculator-service).
+Frontend app that consumes the [the loan calculator API](https://github.com/Abdelsalam-Megahed/loan-calculator-service).
 
 Stack: Vue 3 and Vite.
 
@@ -17,3 +17,4 @@ Make sure backend service is running on port 8080 in order to be able to make re
 
 - Tests on the frontend side
 - Custom validation instead of relying on HTML validation
+- Dockerfile as a containerization solution
