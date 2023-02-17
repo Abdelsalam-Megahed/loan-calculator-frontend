@@ -15,6 +15,6 @@ Make sure backend service is running on port 8080 in order to be able to make re
 
 ### improvements
 
-- Tests on the frontend side
+- Tests
 - Custom validation instead of relying on HTML validation
 - Dockerfile as a containerization solution
